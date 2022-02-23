@@ -1,0 +1,23 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+  <id>lambda-service-2-certificates</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <files>
+    <file>
+      <source>src/main/resources/client_keystore_2.jks</source>
+      <outputDirectory>${file.separator}</outputDirectory>
+      <destName>client_keystore_2.jks</destName>
+      <fileMode>644</fileMode>
+    </file>
+    <file>
+      <source>src/main/resources/client_truststore.jks</source>
+      <outputDirectory>${file.separator}</outputDirectory>
+      <destName>client_truststore.jks</destName>
+      <fileMode>644</fileMode>
+    </file>
+  </files>
+</assembly>

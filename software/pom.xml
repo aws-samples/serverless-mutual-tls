@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.amazon.aws.example</groupId>
+  <artifactId>software</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
+  <modules>
+    <module>lambda-layer-service-1-cert</module>
+    <module>lambda-layer-service-2-cert</module>
+    <module>lambda-ssl-utility-layer</module>
+    <module>0-lambda-no-mtls</module>
+    <module>1-lambda-only</module>
+    <module>2-lambda-using-separate-layer</module>
+    <module>3-lambda-using-parameter-store</module>
+    <module>4-lambda-using-multiple-certificates</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>aws-lambda-java-core</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>aws-lambda-java-events</artifactId>
+        <version>3.11.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>
