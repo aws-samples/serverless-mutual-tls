@@ -1,34 +1,30 @@
-# Lambda on Java enabling mutual TLS
+# Mutual TLS for Java based Lambda functions
 
-This project provides sample code for various ways, how to implement mutual TLS within your Java based AWS Lambda function.
+This project provides sample code for various ways on how to implement mutual TLS within your Java based AWS Lambda function.
 
-We will build the following architecture:
-
+## Architecture
 ![Architecture](doc/Java_Lambda_mTLS_Architecture.png)
 
 ## Getting started
-
 Download or clone this repository.
 
-To follow hands-on, install the following prerequisite tools/software:
+Install the following prerequisite tools/software:
 
 1. Install Java 11 or higher
 2. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 3. Install [AWS CDK v2](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 4. Install [Docker](https://docs.docker.com/get-docker/)
 
-NOTE!
-
 > Run all the following Shell commands in the root directory of this project!
 
-
-## Create the root CA, client and server certificates
+## Setup
+### Create the root CA, client and server certificates
 
 ```bash
 ./scripts/1-create-certificates.sh
 ```
 
-Above script does the following in an orderly manner:
+Above script does the following:
  - Generates two different root CA private keys for two different backend services 
  - Creates and self signs the root CA public keys
  - Creates the two backend services certificates
@@ -37,21 +33,17 @@ Above script does the following in an orderly manner:
  - Finally, copies the backend and Lambda function certificates to respective modules
 
 
-## Build and package the examples
+### Build and package the examples
 
 ```bash
 ./scripts/2-build_and_package-functions.sh
 ```
-
-
-## Provision the AWS infrastructure
+### Provision the AWS infrastructure
 
 ```bash
 ./scripts/3-provision-infrastructure.sh
 ```
-
-
-## Verify all examples
+### Verify all examples
 
 ```bash
 export API_ENDPOINT=$(cat infrastructure/target/outputs.json | jq -r '.LambdaMutualTLS.apiendpoint')
@@ -67,16 +59,23 @@ curl -i $API_ENDPOINT/lambda-parameter-store
 curl -i $API_ENDPOINT/lambda-multiple-certificates
 ```
 
+## Cleanup
 
-## Delete all generated certificates
+### Delete all generated certificates
 
 ```bash
 ./scripts/4-delete-certificates.sh
 ```
 
-
-## Delete all provisioned AWS resources
+### Delete all provisioned AWS resources
 
 ```bash
 ./scripts/5-deprovision-infrastructure.sh
 ```
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
