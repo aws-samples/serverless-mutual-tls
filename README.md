@@ -251,6 +251,8 @@ The following diagram shows your final architecture:
 ![Lambda Multiple Certs](doc/Multiple_Cert_in_Lambda_Layer.png)
 
 ## Setup
+
+### Prerequisites
 To run the sample application, you need:
 1. [CDK v2](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
 2. [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/what-is-corretto-11.html)
@@ -259,29 +261,29 @@ To run the sample application, you need:
 5. [Docker](https://www.docker.com/)
 6. [jq](https://stedolan.github.io/jq/)
 
+### Build and Deploy
 To build and provision the stack:
 
  - Clone the git repository:
-```bash
-git clone https://github.com/aws-samples/serverless-mutual-tls.git
-cd serverless-mutual-tls
-```
+  ```bash
+  git clone https://github.com/aws-samples/serverless-mutual-tls.git
+  cd serverless-mutual-tls
+  ```
 > Run all the following Shell commands in the root directory of this project!
 
- - Run the scripts in order:
-   - Create the root CA, client, and server certificates:
-   ```bash
-     ./scripts/1-create-certificates.sh
-   ```
-   - Build and package:
-   ```bash
-     ./scripts/2-build_and_package-functions.sh
-   ```
-   > Make sure that docker is running before executing next step
-   - Provision the AWS infrastructure:
-   ```bash
-     ./scripts/3-provision-infrastructure.sh
-   ```
+ - Create the root CA, client, and server certificates:
+ ```bash
+ ./scripts/1-create-certificates.sh
+ ```
+ - Build and package:
+ ```bash
+ ./scripts/2-build_and_package-functions.sh
+ ```
+ > Make sure that docker is running before executing next step
+ - Provision the AWS infrastructure:
+ ```bash
+ ./scripts/3-provision-infrastructure.sh
+ ```
  
 ## Verification
 Verify that the API endpoints are working and actually using mTLS by running below curl commands from base directory:
