@@ -4,8 +4,10 @@
 package com.amazon.aws.example;
 
 import software.amazon.awscdk.*;
-import software.amazon.awscdk.services.apigatewayv2.alpha.*;
-import software.amazon.awscdk.services.apigatewayv2.integrations.alpha.HttpLambdaIntegration;
+import software.amazon.awscdk.services.apigateway.EndpointType;
+import software.amazon.awscdk.services.apigateway.LambdaIntegration;
+import software.amazon.awscdk.services.apigateway.RestApi;
+import software.amazon.awscdk.services.apigateway.RestApiProps;
 import software.amazon.awscdk.services.ec2.*;
 import software.amazon.awscdk.services.ecs.*;
 import software.amazon.awscdk.services.elasticloadbalancingv2.Protocol;
@@ -26,12 +28,15 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.singletonList;
-import static software.amazon.awscdk.services.lambda.Architecture.*;
+import static software.amazon.awscdk.services.apigatewayv2.alpha.HttpMethod.GET;
+import static software.amazon.awscdk.services.lambda.Architecture.ARM_64;
+import static software.amazon.awscdk.services.lambda.Architecture.X86_64;
 
 public class InfrastructureStack extends Stack {
   public InfrastructureStack(final Construct scope, final String id) {
     this(scope, id, null);
   }
+
   private static final String BACKEND_SERVICE_1_HOST_NAME = "backend-service-1.com";
   private static final String BACKEND_SERVICE_2_HOST_NAME = "backend-service-2.com";
 
@@ -310,54 +315,30 @@ public class InfrastructureStack extends Stack {
       .initialPolicy(ssmPermissions)
       .build());
 
-    HttpApi httpApi = new HttpApi(this, "JavaLambdaMutualTLSApi", HttpApiProps.builder()
-      .apiName("JavaLambdaMutualTLSApi")
+    RestApi restApi = new RestApi(this, "JavaLambdaMutualTLSApi", RestApiProps.builder()
+      .restApiName("JavaLambdaMutualTLSApi")
+      .endpointTypes(List.of(EndpointType.REGIONAL))
       .build());
 
-    httpApi.addRoutes(AddRoutesOptions.builder()
-      .path("/lambda-no-mtls")
-      .methods(singletonList(HttpMethod.GET))
-      .integration(HttpLambdaIntegration.Builder.create("LambdaNoMtlsIntegration", lambdaNoMTLSFunction)
-        .payloadFormatVersion(PayloadFormatVersion.VERSION_2_0)
-        .build()
-      )
-      .build());
+    restApi.getRoot()
+      .addResource("lambda-no-mtls")
+      .addMethod(GET.toString(), LambdaIntegration.Builder.create(lambdaNoMTLSFunction).build());
 
-    httpApi.addRoutes(AddRoutesOptions.builder()
-      .path("/lambda-only")
-      .methods(singletonList(HttpMethod.GET))
-      .integration(HttpLambdaIntegration.Builder.create("LambdaOnlyIntegration", lambdaOnlyFunction)
-        .payloadFormatVersion(PayloadFormatVersion.VERSION_2_0)
-        .build()
-      )
-      .build());
+    restApi.getRoot()
+      .addResource("lambda-only")
+      .addMethod(GET.toString(), LambdaIntegration.Builder.create(lambdaOnlyFunction).build());
 
-    httpApi.addRoutes(AddRoutesOptions.builder()
-      .path("/lambda-layer")
-      .methods(singletonList(HttpMethod.GET))
-      .integration(HttpLambdaIntegration.Builder.create("LambdaLayerIntegration", lambdaLayerFunction)
-        .payloadFormatVersion(PayloadFormatVersion.VERSION_2_0)
-        .build()
-      )
-      .build());
+    restApi.getRoot()
+      .addResource("lambda-layer")
+      .addMethod(GET.toString(), LambdaIntegration.Builder.create(lambdaLayerFunction).build());
 
-    httpApi.addRoutes(AddRoutesOptions.builder()
-      .path("/lambda-multiple-certificates")
-      .methods(singletonList(HttpMethod.GET))
-      .integration(HttpLambdaIntegration.Builder.create("LambdaMultiCertIntegration", lambdaMultipleCertificatesFunction)
-        .payloadFormatVersion(PayloadFormatVersion.VERSION_2_0)
-        .build()
-      )
-      .build());
+    restApi.getRoot()
+      .addResource("lambda-parameter-store")
+      .addMethod(GET.toString(), LambdaIntegration.Builder.create(lambdaParameterStoreFunction).build());
 
-    httpApi.addRoutes(AddRoutesOptions.builder()
-      .path("/lambda-parameter-store")
-      .methods(singletonList(HttpMethod.GET))
-      .integration(HttpLambdaIntegration.Builder.create("LambdaParamStoreIntegration", lambdaParameterStoreFunction)
-        .payloadFormatVersion(PayloadFormatVersion.VERSION_2_0)
-        .build()
-      )
-      .build());
+    restApi.getRoot()
+      .addResource("lambda-multiple-certificates")
+      .addMethod(GET.toString(), LambdaIntegration.Builder.create(lambdaMultipleCertificatesFunction).build());
 
     PrivateHostedZone zoneBackendService1 = PrivateHostedZone.Builder.create(this, "PrivateHostedZoneBackendService1")
       .zoneName(BACKEND_SERVICE_1_HOST_NAME)
@@ -380,7 +361,7 @@ public class InfrastructureStack extends Stack {
       .build();
 
     new CfnOutput(this, "api-endpoint", CfnOutputProps.builder()
-      .value(httpApi.getApiEndpoint())
+      .value(restApi.getUrl())
       .build());
   }
 }
