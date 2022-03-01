@@ -353,7 +353,7 @@ httpClient = HttpClient.newBuilder()
   .build();
 ```
 
-##Cleanup
+## Cleanup
 The stack creates custom VPC and other related resources. 
 Cleanup after usage to avoid ongoing cost of running these services. 
 To clean up the infrastructure and the self-generated certificates, run below commands:
