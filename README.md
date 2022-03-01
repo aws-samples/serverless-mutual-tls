@@ -381,6 +381,10 @@ You can use any approach from above that suits your need, organizational securit
  - Generates Lambda functions’ KeyStores per backend service, signs them, and imports the signed client public key into the Lambda functions’ resources and Lambda layers’ resources. More about it is explained in each approach.
  - Finally, copies the backend and Lambda function certificates to respective modules
 
+## Contributors
+ - [Christian Mueller](https://github.com/muellerc)
+ - [Dhiraj Mahapatro](https://github.com/dmahapatro)
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
