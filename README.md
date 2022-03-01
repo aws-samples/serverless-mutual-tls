@@ -180,10 +180,12 @@ All layers attached to a function get merged when provisioning the function. The
 A Lambda function can use up to five Lambda layers (as of Feb. 2022). 
 In case Lambda function makes multiple service calls and each of them require different mTLS setup, based on your need consider merging and maintaining one layer for all TrustStore and KeyStore with different names.
 
-Similar to the previous approach, you load multiple KeyStores and TrustStores to construct multiple `SSLContext` objects. You abstract the common logic to create an `SSLContext` object in another Lambda layer. Now, the Lambda function calling two different backend services uses 3 Lambda layers:
-•	Lambda layer for backend service 1 (under `/opt`)
-•	Lambda layer for backend service 2 (under `/opt`)
-•	Lambda layer for the SSL utility that takes KeyStore, TrustStore, and their passwords to return an `SSLContext` object
+Similar to the previous approach, you load multiple KeyStores and TrustStores to construct multiple `SSLContext` objects. 
+You abstract the common logic to create an `SSLContext` object in another Lambda layer. 
+Now, the Lambda function calling two different backend services uses 3 Lambda layers:
+ - Lambda layer for backend service 1 (under `/opt`)
+ - Lambda layer for backend service 2 (under `/opt`)
+ - Lambda layer for the SSL utility that takes KeyStore, TrustStore, and their passwords to return an `SSLContext` object
 
 ```java
 Function lambdaMultipleCertificatesFunction = new Function(this, "LambdaMultipleCertificatesFunction", FunctionProps.builder()
