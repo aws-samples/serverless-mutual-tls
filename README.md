@@ -1,4 +1,4 @@
-# Implementing mutual TLS for Java based AWS Lambda functions
+# Mutual TLS for Java based AWS Lambda functions
 Modern secure applications establish network connections to other services through HTTPS. 
 This is to ensure that the application connects to the right party and to encrypt the data before sending it over the network.
 As a service provider, you might not want unauthenticated users to connect to your service. 
