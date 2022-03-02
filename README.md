@@ -33,7 +33,7 @@ A KeyStore stores private key and identity certificates that a specific applicat
 The concepts are opposite to each other. TrustStore holds identification certificates that identify others, while KeyStore holds the identification certificates that identify itself.
 
 ## Overview
-To start, you create certificates. For brevity, this sample application uses a [script](scripts/1-create-certificates.sh) that uses OpenSSL and Java’s [keytool](https://docs.oracle.com/en/java/javase/11/tools/keytool.html) for self-signed certificates from a certificate authority (CA). 
+To start, you create certificates. For brevity, this sample application uses a [script](scripts/1-create-certificates.sh) that uses OpenSSL and Java’s [keytool](https://docs.oracle.com/en/java/javase/11/tools/keytool.html) for self-signed certificates from a Certificate Authority (CA). 
 You store the generated keys in Java KeyStore and TrustStore.
 You can find additional details about this script in [Appendix section](#appendix) at the bottom of this page.
 
