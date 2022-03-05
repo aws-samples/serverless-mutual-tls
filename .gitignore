@@ -16,6 +16,5 @@ cdk.out/
 !/software/lambda-using-separate-layer/layer/src/main/resources/.gitkeep
 !/software/backend-service-1/conf.d/certs/.gitkeep
 !/software/backend-service-2/conf.d/certs/.gitkeep
-/software/.mvn/
 
 *.jks
