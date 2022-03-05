@@ -256,10 +256,9 @@ The following diagram shows your final architecture:
 To run the sample application, you need:
 1. [CDK v2](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
 2. [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/what-is-corretto-11.html)
-3. [Maven](https://maven.apache.org/download.cgi)
-4. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-5. [Docker](https://www.docker.com/)
-6. [jq](https://stedolan.github.io/jq/)
+3. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+4. [Docker](https://www.docker.com/)
+5. [jq](https://stedolan.github.io/jq/)
 
 ### Build and Deploy
 To build and provision the stack:

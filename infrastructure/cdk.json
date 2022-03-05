@@ -1,5 +1,5 @@
 {
-  "app": "mvn -e -q compile exec:java",
+  "app": "./mvnw -e -q compile exec:java",
   "versionReporting": false,
   "context": {
     "aws-cdk:enableDiffNoFail": "true",
