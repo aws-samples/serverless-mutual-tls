@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cd software && ./mvnw clean package
+cd software && mvn clean package

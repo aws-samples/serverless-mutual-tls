@@ -301,8 +301,8 @@ For successful usage of mTLS as shown in above use cases, run below commands:
 ```bash
 curl -i $API_ENDPOINT/lambda-only
 curl -i $API_ENDPOINT/lambda-layer
-curl -i $API_ENDPOINT/lambda-multiple-certificates
 curl -i $API_ENDPOINT/lambda-parameter-store
+curl -i $API_ENDPOINT/lambda-multiple-certificates
 ```
 
 ## Additional Security
